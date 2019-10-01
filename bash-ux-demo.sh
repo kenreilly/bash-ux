@@ -5,7 +5,9 @@
 
 # import library code
 source ./lib/config.sh
+source ./lib/colors.sh
 source ./lib/screen.sh
+source ./lib/utility.sh
 
 DEBUG=1
 
