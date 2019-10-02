@@ -3,7 +3,7 @@
 # Error Handling
 function on_error() { echo "error: [ ${BASH_SOURCE[1]} at line ${BASH_LINENO[0]} ]"; }
 set -o errtrace
-trap on_error ERR
+# trap on_error ERR
 
 # Alias Expansion
 shopt -s expand_aliases

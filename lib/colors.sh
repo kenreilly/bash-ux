@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 declare -A -x color_map_16=(
 	['black']='0;30'
@@ -22,7 +23,6 @@ function set_color() {
 
 	local color_name=${1:-white}
 	local color=${color_map_16[$color_name]}
-	# printf "$color"
-	# printf "\[\033[}}m\]";
+
 	echo "\033[${color}m"
 }
