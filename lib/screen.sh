@@ -21,6 +21,7 @@ function draw_chars() {
 function print_debug() {
 
 	print_pid
+	print_key
 	print_dimensions
 }
 
@@ -38,6 +39,16 @@ function print_pid() {
 	draw_chars 1 1 "$str"
 }
 
+function print_key() {
+
+	local key=$( get_last_key )
+	local str="[ key: $(set_color 'light_green')${key}$(set_color) ]"
+	local half_width=$(( ${_screen['cols']} / 2 ))
+	local half_length=$(( $(str_length "$str") / 2))
+	local start=$(( $half_width - $half_length ))
+	draw_chars $start 1 "$str"
+}
+
 function screen_init() {
 
 	clear
@@ -47,7 +58,7 @@ function screen_init() {
 
 function on_resize() {
 
-	return [ $COLUMNS == ${_screen['cols']} ] && [ $ROWS == ${_screen['rows']} ] && 0 || 1
+	[[ $COLUMNS == ${_screen['cols']} ]] && [[ $LINES == ${_screen['rows']} ]] && echo 0 || echo 1
 }
 
 function screen_run() {
@@ -55,8 +66,11 @@ function screen_run() {
 	local delay=${_config['delay']}
 
 	while [ : ]; do
-		[[ on_resize ]] && screen_init
+
+		[[ $(on_resize) == 1 ]] && screen_init
 		[[ $DEBUG == 1 ]] && print_debug
+	
+		input_process
 		sleep $delay
 	done
 }
