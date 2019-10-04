@@ -13,5 +13,7 @@ alias kwargs='(( $# )) && local'
 trap exit TERM
 alias exit_script='kill -s TERM $$'
 
-# Set Script Globals
-_ROOT="$( cd "$(dirname "$0")" ; pwd -P )"
+# Global config data
+declare -A -x _config=(
+	['delay']=.01
+)
